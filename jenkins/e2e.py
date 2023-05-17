@@ -11,6 +11,7 @@ import shutil
 
 mgmtCluster = os.getenv("MANAGEMENT_CLUSTER")
 apikey = os.getenv("IBMCLOUD_API_KEY")
+print(f"API key's value is {apikey}")
 region = os.getenv("REGION")
 zone = os.getenv("ZONE")
 vpcRegion = os.getenv("VPC_REGION")
@@ -33,6 +34,7 @@ def setupEnv():
         raise Exception("IBMCLOUD_API_KEY is not set")
 
     api = "--apikey={}".format(apikey)
+    print(f"api made commands value is {api}")
     subprocess.run(['ibmcloud', 'login', api,'-r', vpcRegion])
 
     f = os.open(mgmtClusterKubeconfigPath, os.O_RDWR|os.O_CREAT)
