@@ -33,6 +33,7 @@ def setupEnv():
     print("Entered setup environment")
     if apikey == "":
         raise Exception("IBMCLOUD_API_KEY is not set")
+    apikey = apikey[1:-1]
     api = "--apikey={}".format(apikey)
     print(f"api made commands value is {api}")
     result = subprocess.run(['ibmcloud', 'login', api,'-r', vpcRegion])
