@@ -36,23 +36,7 @@ def setupEnv():
     api = "--apikey={}".format(apikey)
     print(f"api made commands value is {api}")
     result = subprocess.run(['ibmcloud', 'login', api,'-r', vpcRegion])
-    print(result.stdout,result.stderr,result.returncode)
-
-    f = os.open(mgmtClusterKubeconfigPath, os.O_RDWR|os.O_CREAT)
-
-    subprocess.run(['ibmcloud', 'oc', 'cluster', 'config', '-c', mgmtCluster, '--admin', '--output', 'yaml'], stdout=f)
-
-    os.close(f)
-
-    os.environ["KUBECONFIG"] = mgmtClusterKubeconfigPath
-
-    subprocess.run(["curl", "https://codeload.github.com/openshift/hypershift/zip/refs/heads/main", "-o", "hypershift.zip"])
-
-    subprocess.run(["unzip", "-q", "-o", "hypershift.zip"])
-
-    os.chdir("hypershift-main")
-
-    out = subprocess.run(["make", "hypershift"])
+    print("The out of ibmcloud login command: {} and error is {}".format(result.stdout, result.stderr))
 
 def destroyCluster(name, infraID, vpcRegion, region, zone, resourceGroup, baseDomain):
     destroyClusterCmd = ["bin/hypershift", "destroy", "cluster", "powervs", 
@@ -242,7 +226,7 @@ def cleanupEnv():
 if __name__ == "__main__":
     try:
         setupEnv()
-        runE2e()
+        #runE2e()
     except Exception as ex:
         raise
     finally:
