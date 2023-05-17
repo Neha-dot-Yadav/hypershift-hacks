@@ -36,6 +36,7 @@ def setupEnv():
     api = "--apikey={}".format(apikey)
     print(f"api made commands value is {api}")
     result = subprocess.run(['ibmcloud', 'login', api,'-r', vpcRegion])
+    print("Test test.........")
     print("The out of ibmcloud login command: {} and error is {}".format(result.stdout, result.stderr))
 
 def destroyCluster(name, infraID, vpcRegion, region, zone, resourceGroup, baseDomain):
@@ -230,4 +231,4 @@ if __name__ == "__main__":
     except Exception as ex:
         raise
     finally:
-        cleanupEnv()
+        #cleanupEnv()
