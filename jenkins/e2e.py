@@ -233,5 +233,5 @@ if __name__ == "__main__":
         runE2e()
     except Exception as ex:
         raise
-    #finally:
-        #cleanupEnv()
+    finally:
+        cleanupEnv()
