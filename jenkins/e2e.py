@@ -31,8 +31,7 @@ mgmtClusterKubeconfigPath = "/tmp/ci-mgmt-kubeconfig"
 def setupEnv():
     if apikey == "":
         raise Exception("IBMCLOUD_API_KEY is not set")
-    apiKey = apikey[1:-1]
-    api = "--apikey={}".format(apiKey)
+    api = "--apikey={}".format(apikey)
     subprocess.run(['ibmcloud', 'login', api,'-r', vpcRegion])
     f = os.open(mgmtClusterKubeconfigPath, os.O_RDWR|os.O_CREAT)
     subprocess.run(['ibmcloud', 'oc', 'cluster', 'config', '-c', mgmtCluster, '--admin', '--output', 'yaml'], stdout=f)
