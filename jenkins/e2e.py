@@ -29,7 +29,6 @@ guestKubeconfigPath = "/tmp/ci-guest-kubeconfig"
 mgmtClusterKubeconfigPath = "/tmp/ci-mgmt-kubeconfig"
 
 def setupEnv():
-    print("Entered setup environment")
     if apikey == "":
         raise Exception("IBMCLOUD_API_KEY is not set")
     apiKey = apikey[1:-1]
@@ -232,7 +231,7 @@ def cleanupEnv():
 if __name__ == "__main__":
     try:
         setupEnv()
-        #runE2e()
+        runE2e()
     except Exception as ex:
         raise
     #finally:
