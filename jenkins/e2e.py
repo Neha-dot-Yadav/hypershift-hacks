@@ -11,7 +11,6 @@ import shutil
 
 mgmtCluster = os.getenv("MANAGEMENT_CLUSTER")
 apikey = os.getenv("IBMCLOUD_API_KEY")
-print(f"API key's value is {apikey}")
 region = os.getenv("REGION")
 zone = os.getenv("ZONE")
 vpcRegion = os.getenv("VPC_REGION")
@@ -35,10 +34,15 @@ def setupEnv():
         raise Exception("IBMCLOUD_API_KEY is not set")
     apiKey = apikey[1:-1]
     api = "--apikey={}".format(apiKey)
-    print(f"api made commands value is {api}")
-    result = subprocess.run(['ibmcloud', 'login', api,'-r', vpcRegion])
-    print("Test test.........")
-    print("The out of ibmcloud login command: {} and error is {}".format(result.stdout, result.stderr))
+    subprocess.run(['ibmcloud', 'login', api,'-r', vpcRegion])
+    f = os.open(mgmtClusterKubeconfigPath, os.O_RDWR|os.O_CREAT)
+    subprocess.run(['ibmcloud', 'oc', 'cluster', 'config', '-c', mgmtCluster, '--admin', '--output', 'yaml'], stdout=f)
+    os.close(f)
+    os.environ["KUBECONFIG"] = mgmtClusterKubeconfigPath
+    subprocess.run(["curl", "https://codeload.github.com/openshift/hypershift/zip/refs/heads/main", "-o", "hypershift.zip"])
+    subprocess.run(["unzip", "-q", "-o", "hypershift.zip"])
+    os.chdir("hypershift-main")
+    out = subprocess.run(["make", "hypershift"])
 
 def destroyCluster(name, infraID, vpcRegion, region, zone, resourceGroup, baseDomain):
     destroyClusterCmd = ["bin/hypershift", "destroy", "cluster", "powervs", 
