@@ -39,7 +39,7 @@ def setupEnv():
     os.environ["KUBECONFIG"] = mgmtClusterKubeconfigPath
     subprocess.run(["curl", "https://codeload.github.com/openshift/hypershift/zip/refs/heads/release-4.12", "-o", "hypershift.zip"])
     subprocess.run(["unzip", "-q", "-o", "hypershift.zip"])
-    os.chdir("hypershift-main")
+    os.chdir("hypershift-release-4.12")
     out = subprocess.run(["make", "hypershift"])
 
 def destroyCluster(name, infraID, vpcRegion, region, zone, resourceGroup, baseDomain):
