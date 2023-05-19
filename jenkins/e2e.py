@@ -69,7 +69,6 @@ def runE2e():
 
     # Installing hypershift operator ...
     subprocess.run(["bin/hypershift", "install"])
-    erroronpurpose
     name = "hypershift-ci-{}".format(datetime.datetime.utcnow().strftime("%Y%m%d%H%M%S"))
     infraID = "{}-infra".format(name)
 
