@@ -52,7 +52,7 @@ def destroyCluster(name, infraID, vpcRegion, region, zone, resourceGroup, baseDo
     "--resource-group={}".format(resourceGroup),
     "--base-domain={}".format(baseDomain)
     ]
-
+  
     retry = 0
     while retry < 5:
         try:
@@ -69,7 +69,7 @@ def runE2e():
 
     # Installing hypershift operator ...
     subprocess.run(["bin/hypershift", "install"])
-
+    erroronpurpose
     name = "hypershift-ci-{}".format(datetime.datetime.utcnow().strftime("%Y%m%d%H%M%S"))
     infraID = "{}-infra".format(name)
 
