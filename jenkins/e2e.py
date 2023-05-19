@@ -37,7 +37,7 @@ def setupEnv():
     subprocess.run(['ibmcloud', 'oc', 'cluster', 'config', '-c', mgmtCluster, '--admin', '--output', 'yaml'], stdout=f)
     os.close(f)
     os.environ["KUBECONFIG"] = mgmtClusterKubeconfigPath
-    subprocess.run(["curl", "https://codeload.github.com/openshift/hypershift/zip/refs/heads/main", "-o", "hypershift.zip"])
+    subprocess.run(["curl", "https://codeload.github.com/openshift/hypershift/zip/refs/heads/release-4.12", "-o", "hypershift.zip"])
     subprocess.run(["unzip", "-q", "-o", "hypershift.zip"])
     os.chdir("hypershift-main")
     out = subprocess.run(["make", "hypershift"])
