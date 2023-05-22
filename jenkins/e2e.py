@@ -68,7 +68,7 @@ def destroyCluster(name, infraID, vpcRegion, region, zone, resourceGroup, baseDo
 def runE2e():
 
     # Installing hypershift operator ...
-    subprocess.run(["bin/hypershift", "install"])
+    subprocess.run(["bin/hypershift", "install", "--hypershift-operator-image", "quay.io/hypershift/hypershift-operator:4.12"])
     name = "hypershift-ci-{}".format(datetime.datetime.utcnow().strftime("%Y%m%d%H%M%S"))
     infraID = "{}-infra".format(name)
 
